@@ -8,42 +8,42 @@ from flask_ipfilter import IPFilter, Whitelist
 '''
 Flask Web API
 '''
-# 建立 Flask 物件
+# Build Flask app
 app = Flask(__name__)
 
-# 設定白名單
+# Set whitelist for IP filter
 ip_filter = IPFilter(app, ruleset=Whitelist())
 ip_filter.ruleset.permit("127.0.0.1")
 
 # Re-ranker
 cross_encoder = CrossEncoder(
     'BAAI/bge-reranker-v2-m3',
-    device='cpu', # 'cpu', # 'cuda:0', 
+    device='cpu', # 'cuda:0'
     trust_remote_code=True
 )
 
-# 重新排序文字內容
+# Re-rank text content
 @app.route("/rerank", methods = ["POST"])
 def rerank():
-    # 取得請求資料
+    # Get request data
     q = request.json['q']
     li_sentences = request.json['li_sentences']
     li_urls = request.json['li_urls']
 
-    # 重新排序
+    # Re-rank
     t1 = time()
-    print('重新排序中...')
+    print('Re-ranking...')
     ranks = cross_encoder.rank(q, li_sentences, return_documents=True)
     for index, obj in enumerate(ranks):
         ranks[index]['score'] = float(obj['score'])
         ranks[index]['url'] = li_urls[obj['corpus_id']]
     pprint(ranks)
-    print(f"重新排序花費時間：{time() - t1:.2f}")
+    print(f"Re-ranking took: {time() - t1:.2f} seconds")
 
-    # 回傳結果
+    # Return results
     return jsonify({"ranks": ranks})
 
-# 主程式區域
+# Main program area
 if __name__ == '__main__':
     app.debug = False
     app.json.ensure_ascii = False

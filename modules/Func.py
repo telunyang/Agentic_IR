@@ -17,7 +17,7 @@ https://www.evidentlyai.com/ranking-metrics/ndcg-metric
 '''
 Agent termination condition
 '''
-# 結束條件
+# Termination condition for agent
 def termination_msg(x):
     '''
     {
@@ -36,13 +36,13 @@ def termination_msg(x):
 '''
 Make HTML for Knowledge Graph visualization
 '''
-# 建立 KG 範例的 HTML 字串
+# Generate example HTML string for KG
 def get_kg_example_html(li_triplets) -> str:
     html = '''<!DOCTYPE html>
 <html lang="zh">
 <head>
   <meta charset="UTF-8">
-  <title>Knowledge Graph 知識圖譜</title>
+  <title>Knowledge Graph</title>
   <script src="https://d3js.org/d3.v7.min.js"></script>
   <style>
     html, body {
@@ -230,7 +230,7 @@ simulation.on("end", () => {
 '''
 Metric for ranking quality
 '''
-# 正規化分數
+# Normalize scores
 def normalize_scores(ranks):
     scores = [r['score'] for r in ranks]
     min_s, max_s = min(scores), max(scores)
@@ -276,22 +276,22 @@ def wm(ranks1, ranks2, weight1=0.5, weight2=0.5, top_k=None):
     fused.sort(key=lambda x: x['score'], reverse=True)
     return fused if not top_k else fused[:top_k]
 
-# RRF + Weighted (RRF scores與normalized score相加)
+# RRF + Weighted (RRF scores and normalized scores combined)
 '''
-alpha 的意義：
+alpha meaning:
     alpha = 1.0
-        → 完全用 RRF，忽略原始分數，排序只依據「位置」。
+        → Use RRF completely, ignoring original scores, ranking based only on "position".
     alpha = 0.0
-        → 完全用加權平均，只靠標準化後的分數。
+        → Use weighted mean completely, relying only on normalized scores.
     alpha = 0.5
-        → 各取一半，結合兩種策略（常用預設值）。
+        → Use half of each, combining both strategies (common default value).
 '''
 def rrf_wm(ranks1, ranks2, k=60, weight1=0.5, weight2=0.5, alpha=0.5, top_k=None):
-    # 計算RRF分數
+    # Calculate RRF scores
     rrf_fused = rrf(ranks1, ranks2, k=k)
     rrf_scores = {r['corpus_id']: r['score'] for r in rrf_fused}
 
-    # 正規化原始分數並加權
+    # Normalize original scores and apply weights
     ranks1 = normalize_scores(ranks1.copy())
     ranks2 = normalize_scores(ranks2.copy())
     dict1 = {r['corpus_id']: r['score'] for r in ranks1}
@@ -312,10 +312,10 @@ def rrf_wm(ranks1, ranks2, k=60, weight1=0.5, weight2=0.5, alpha=0.5, top_k=None
 # NDCG (Normalized Discounted Cumulative Gain)
 def ndcg_at_k(result, relevant_dict, k=5, use_exp=True):
     """
-    result: 排名結果 [{'corpus_id': int, ...}, ...]
-    relevant_dict: {corpus_id: relevance_score}，例如 {9:3, 3:2, 0:1}
-    k: 計算前k名
-    use_exp: 是否使用 2^rel - 1 來加權
+    result: ranks [{'corpus_id': int, ...}, ...]
+    relevant_dict: {corpus_id: relevance_score}, e.g., {9:3, 3:2, 0:1}
+    k: top k
+    use_exp: whether to use 2^rel - 1 for weighting
     """
     def gain(rel):
         return (2**rel - 1) if use_exp else rel
@@ -330,12 +330,12 @@ def ndcg_at_k(result, relevant_dict, k=5, use_exp=True):
 
     return dcg / idcg if idcg > 0 else 0
 
-# 計算 Top-1 Accuracy
+# Get Top-1 Accuracy
 def top1_accuracy(result, ground_truth_ids):
     """
-    result: 排名結果 [{'corpus_id': int, ...}, ...]
-    ground_truth_ids: set 或 list，代表理想答案的 corpus_id（通常從 gemini_llm 排名第一名來取）
-    回傳: Top-1 是否正確 (單查詢為 1 或 0，或多查詢時為比例)
+    result: ranks [{'corpus_id': int, ...}, ...]
+    ground_truth_ids: set or list, representing the ideal answer corpus_id (usually taken from the top rank of gemini_llm)
+    Returns: Whether Top-1 is correct (1 or 0 for single query, or proportion for multiple queries)
     """
     if not result:
         return 0.0
@@ -349,55 +349,55 @@ Citation coverage (CC)
 '''
 Triplet = Tuple[str, str, str]
 
-# 正規化字串（小寫、去除多餘空白）
+# Normalize string (lowercase, remove extra spaces)
 def norm(s: str) -> str:
     s = s.lower().strip()
     s = re.sub(r"\s+", " ", s)
     return s
 
-# 別名比對（完全相同或子字串）
+# Match aliases
 def alias_match(token: str, aliases: List[str]) -> bool:
     t = norm(token)
     return any(t == norm(a) or t in norm(a) or norm(a) in t for a in aliases)
 
-# 判斷是否支援該題金標 triplet（單一答案）
+# Determine if the gold triplet is supported (single answer)
 def supports_gold_triplet_extractive(
     trip: Triplet,
     answer_aliases: List[str],
     allowed_rels: List[str] = None
 ) -> bool:
     h, r, t = (norm(trip[0]), norm(trip[1]), norm(trip[2]))
-    # 只要 head 或 tail 命中答案實體即可（如果題型需要 head/tail 指定，可加嚴）
+    # Only need head or tail to hit the answer entity (if the question type requires head/tail specification, it can be stricter)
     entity_hit = alias_match(h, answer_aliases) or alias_match(t, answer_aliases)
     if not entity_hit:
         return False
     if allowed_rels is None or len(allowed_rels) == 0:
-        return True  # 實體對齊模式
+        return True  # Entity alignment mode
     return norm(r) in {norm(rr) for rr in allowed_rels}
 
-# 判斷 Top-K 是否支援該題金標 triplet（單一答案）
+# Determine if Top-K supports the gold triplet (single answer)
 def supported_by_topk(q: Dict, K: int) -> int:
-    """回傳 0/1：Top-K 是否支援該題金標 triplet（單一答案）。"""
+    """Return 0/1: Whether Top-K supports the gold triplet (single answer)."""
     ans_aliases = q["answer_aliases"]
-    allowed_rels = q.get("allowed_rels", [])  # 可空
+    allowed_rels = q.get("allowed_rels", [])  # Optional
     refs = q["references"][:K]
     for ref in refs:
-        # 先用抽取的 triplets 判斷
+        # First, use extracted triplets to judge
         for tri in ref.get("triplets", []):
             if supports_gold_triplet_extractive(tri, ans_aliases, allowed_rels):
                 return 1
-        # （可選）退而求其次：若沒抽到 triplets，直接在原文 text 做實體命中
+        # (Optional) Fallback: if no triplets extracted, directly match entities in the original text
         txt = norm(ref.get("text", ""))
         if any(norm(a) in txt for a in ans_aliases):
             return 1
     return 0
 
-# 計算 Coverage@K（多題平均）
+# Calculate Coverage@K (average over multiple questions)
 def coverage_at_k(dataset: List[Dict], K: int) -> float:
     hits = sum(supported_by_topk(q, K) for q in dataset)
     cov = hits / len(dataset) if dataset else 0.0
-    return round(cov, 4)  # 四位小數
+    return round(cov, 4)  # Four decimal places
 
-# 計算 Coverage@1 到 Coverage@15（多題平均）
+# Calculate Coverage@1 to Coverage@15 (average over multiple questions)
 def coverage_curve_k1_15(dataset: List[Dict]) -> List[Tuple[int, float]]:
     return [(k, coverage_at_k(dataset, k)) for k in range(1, 16)]
