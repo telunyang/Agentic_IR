@@ -1,14 +1,18 @@
 import os, json, sys
 from autogen import ConversableAgent, LLMConfig
 from autogen import register_function
-
 from modules.Prompts import get_router_sys_prompt, get_rag_prompt
 from modules.Search import get_search_results
 from modules.Model import get_llm_config, generate
 from modules.Func import termination_msg, get_kg_example_html
 
+# Ignore warnings
+import warnings
+warnings.filterwarnings("ignore")
+
 # New a output folder
 os.makedirs("./output", exist_ok=True)
+
 
 '''
 Model Configuration
@@ -17,6 +21,12 @@ Model Configuration
 os.environ["OAI_CONFIG_LIST"] = get_llm_config()
 if "SSL_CERT_FILE" in os.environ:
     del os.environ["SSL_CERT_FILE"]
+
+
+'''
+Basic Settings
+'''
+num_results = 3  # Number of search results to return
 
 # Model list
 li_models = [
@@ -42,7 +52,6 @@ llm_config = LLMConfig.from_json(
 ).where(model=model_name)
 
 
-
 '''
 Build Agents
 '''
@@ -64,7 +73,7 @@ with llm_config:
         human_input_mode="NEVER",
         code_execution_config=False,
         is_termination_msg=termination_msg,
-        description="An agent that executes function calling (tool) to obtain search results based on user queries."
+        description="An agent that executes function calling (tool) to obtain search results based on user queries. Do not provide your answer. Just briefly explain what type of question this is, whether it is single-hop or multi-hop, etc., and provide it to `router_agent` for reference."
     )
 
 # Register function calling (tool) to executor_agent
@@ -73,11 +82,13 @@ register_function(
     caller=router_agent,
     executor=executor_agent,
     name="get_search_results",
-    description=f'''Obtain parameters user_intent, hop_type, user_query, query, model_name, search_results, proper_knowledge, num_results = 3, model_name = {model_name}. If Response from calling tool successfully returns, say `DONE!`.''',
+    description=f'''Obtain parameters user_intent, hop_type, user_query, query, model_name, search_results, proper_knowledge, num_results = {num_results}, model_name = {model_name}. If Response from calling tool successfully returns, say `DONE!`.''',
 )
 
 
-# Main process
+'''
+Main Process
+'''
 if __name__ == "__main__":
     q = input("Please enter your query: ")
     q_rpl = q.replace("\n", " ")
@@ -88,7 +99,7 @@ if __name__ == "__main__":
             chat_result = router_agent.initiate_chat(
                 recipient=executor_agent,
                 message=q_rpl,
-                max_turns=2,
+                max_turns=2, # You can adjust the number of interaction turns here
             )
 
             # Extract function calling result from chat history
@@ -116,6 +127,10 @@ if __name__ == "__main__":
 
             # For Agentic IR, perform generative response
             generated_text = generate(user_prompt, model_name)
+
+            # Print results
+            print("\n\n=== Generated Response ===\n")
+            print(generated_text.split("Answer:")[-1].strip())
 
             # Output results
             with open(f"./output/search_result.json", "w", encoding="utf8") as f:
