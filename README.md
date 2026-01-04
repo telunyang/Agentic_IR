@@ -146,3 +146,151 @@ Note: Before you run the `run.py` script, please make sure the reranking web api
 ```bash
 python run.py
 ```
+
+### 3. Examples
+Note: You can set `num_results` in `run.py` to control the number of search results returned.
+
+**Question**: Who wrote a song "yesterday once more"?
+```log
+Using model: gpt-oss:120b
+Please enter your query: Who wrote a song "yesterday once more"?
+router_agent (to executor_agent):
+
+Who wrote a song "yesterday once more"?
+
+--------------------------------------------------------------------------------
+executor_agent (to router_agent):
+
+The song was recorded and made famous by the Carpenters, appearing on their 1973 album *Now & Then* and becoming one of their signature hits.
+
+--------------------------------------------------------------------------------
+router_agent (to executor_agent):
+
+
+***** Suggested tool call (ollama_manual_func_7869): get_search_results *****
+Arguments: 
+{"user_intent": "Identify the songwriters of \"Yesterday Once More\"", "hop_type": "single-hop", "user_query": "Who wrote a song \"yesterday once more\"?", "query": "Who wrote a song \"yesterday once more\"?", "num_results": 3, "model_name": "gpt-oss:120b"}
+*****************************************************************************
+
+--------------------------------------------------------------------------------
+
+>>>>>>>> EXECUTING FUNCTION get_search_results...
+Call ID: ollama_manual_func_7869
+Input arguments: {'user_intent': 'Identify the songwriters of "Yesterday Once More"', 'hop_type': 'single-hop', 'user_query': 'Who wrote a song "yesterday once more"?', 'query': 'Who wrote a song "yesterday once more"?', 'num_results': 3, 'model_name': 'gpt-oss:120b'}
+==================================================
+Query: Who wrote a song "yesterday once more"?
+Getting content from https://en.wikipedia.org/wiki/Yesterday_Once_More_(song)...
+Knowledge obtained:
+{'q': 'Who wrote a song "yesterday once more"?',
+ 'summaries': ['The song’s credited songwriters are Richard Carpenter and John '
+               'Bettis.',
+               'The opening description states that Yesterday Once More was '
+               'written by Richard Carpenter and John Bettis.',
+               'The song is listed under the category Songs written by Richard '
+               'Carpenter (musician).',
+               'It is also listed under the category Songs with lyrics by John '
+               'Bettis.',
+               'The song appears in the category Songs about nostalgia, '
+               'confirming its authorship by Carpenter and Bettis.'],
+ 'url': 'https://en.wikipedia.org/wiki/Yesterday_Once_More_(song)'}
+<class 'playwright._impl._errors.TimeoutError'> Search.py 196
+Error in Search: Page.goto: Timeout 20000ms exceeded.
+Call log:
+  - navigating to "https://www.tennessean.com/story/entertainment/music/story-behind-the-song/2014/08/23/story-behind-song-yesterday/14493145/", waiting until "load"
+
+Program execution time: 49.492528438568115 seconds
+
+>>>>>>>> EXECUTED FUNCTION get_search_results...
+Call ID: ollama_manual_func_7869
+Input arguments: {'user_intent': 'Identify the songwriters of "Yesterday Once More"', 'hop_type': 'single-hop', 'user_query': 'Who wrote a song "yesterday once more"?', 'query': 'Who wrote a song "yesterday once more"?', 'num_results': 3, 'model_name': 'gpt-oss:120b'}
+Output:
+{"user_intent": "Identify the songwriters of \"Yesterday Once More\"", "hop_type": "single-hop", "user_query": "Who wrote a song \"yesterday once more\"?", "query": "Who wrote a song \"yesterday once more\"?", "model_name": "gpt-oss:120b", "search_results": [[{"q": "Who wrote a song \"yesterday once more\"?", "url": "https://en.wikipedia.org/wiki/Yesterday_Once_More_(song)", "summaries": ["The song’s credited songwriters are Richard Carpenter and John Bettis.", "The opening description states that Yesterday Once More was written by Richard Carpenter and John Bettis.", "The song is listed under the category Songs written by Richard Carpenter (musician).", "It is also listed under the category Songs with lyrics by John Bettis.", "The song appears in the category Songs about nostalgia, confirming its authorship by Carpenter and Bettis."]}]], "proper_knowledge": [{"q": "Who wrote a song \"yesterday once more\"?", "references": [{"corpus_id": 1, "score": 0.9975376129150391, "text": "The opening description states that Yesterday Once More was written by Richard Carpenter and John Bettis.", "url": "https://en.wikipedia.org/wiki/Yesterday_Once_More_(song)"}, {"corpus_id": 0, "score": 0.25822973251342773, "text": "The song’s credited songwriters are Richard Carpenter and John Bettis.", "url": "https://en.wikipedia.org/wiki/Yesterday_Once_More_(song)"}, {"corpus_id": 4, "score": 0.04803941026329994, "text": "The song appears in the category Songs about nostalgia, confirming its authorship by Carpenter and Bettis.", "url": "https://en.wikipedia.org/wiki/Yesterday_Once_More_(song)"}, {"corpus_id": 2, "score": 0.03587467595934868, "text": "The song is listed under the category Songs written by Richard Carpenter (musician).", "url": "https://en.wikipedia.org/wiki/Yesterday_Once_More_(song)"}, {"corpus_id": 3, "score": 0.010694525204598904, "text": "It is also listed under the category Songs with lyrics by John Bettis.", "url": "https://en.wikipedia.org/wiki/Yesterday_Once_More_(song)"}], "triplets": [["Yesterday Once More", "was written by", "Richard Carpenter"], ["Yesterday Once More", "was written by", "John Bettis"], ["Yesterday Once More", "has credited songwriter", "Richard Carpenter"], ["Yesterday Once More", "has credited songwriter", "John Bettis"], ["Yesterday Once More", "appears in category", "Songs about nostalgia"], ["Yesterday Once More", "listed under category", "Songs written by Richard Carpenter (musician)"], ["Yesterday Once More", "listed under category", "Songs with lyrics by John Bettis"]]}]}
+executor_agent (to router_agent):
+
+***** Response from calling tool (ollama_manual_func_7869) *****
+{"user_intent": "Identify the songwriters of \"Yesterday Once More\"", "hop_type": "single-hop", "user_query": "Who wrote a song \"yesterday once more\"?", "query": "Who wrote a song \"yesterday once more\"?", "model_name": "gpt-oss:120b", "search_results": [[{"q": "Who wrote a song \"yesterday once more\"?", "url": "https://en.wikipedia.org/wiki/Yesterday_Once_More_(song)", "summaries": ["The song’s credited songwriters are Richard Carpenter and John Bettis.", "The opening description states that Yesterday Once More was written by Richard Carpenter and John Bettis.", "The song is listed under the category Songs written by Richard Carpenter (musician).", "It is also listed under the category Songs with lyrics by John Bettis.", "The song appears in the category Songs about nostalgia, confirming its authorship by Carpenter and Bettis."]}]], "proper_knowledge": [{"q": "Who wrote a song \"yesterday once more\"?", "references": [{"corpus_id": 1, "score": 0.9975376129150391, "text": "The opening description states that Yesterday Once More was written by Richard Carpenter and John Bettis.", "url": "https://en.wikipedia.org/wiki/Yesterday_Once_More_(song)"}, {"corpus_id": 0, "score": 0.25822973251342773, "text": "The song’s credited songwriters are Richard Carpenter and John Bettis.", "url": "https://en.wikipedia.org/wiki/Yesterday_Once_More_(song)"}, {"corpus_id": 4, "score": 0.04803941026329994, "text": "The song appears in the category Songs about nostalgia, confirming its authorship by Carpenter and Bettis.", "url": "https://en.wikipedia.org/wiki/Yesterday_Once_More_(song)"}, {"corpus_id": 2, "score": 0.03587467595934868, "text": "The song is listed under the category Songs written by Richard Carpenter (musician).", "url": "https://en.wikipedia.org/wiki/Yesterday_Once_More_(song)"}, {"corpus_id": 3, "score": 0.010694525204598904, "text": "It is also listed under the category Songs with lyrics by John Bettis.", "url": "https://en.wikipedia.org/wiki/Yesterday_Once_More_(song)"}], "triplets": [["Yesterday Once More", "was written by", "Richard Carpenter"], ["Yesterday Once More", "was written by", "John Bettis"], ["Yesterday Once More", "has credited songwriter", "Richard Carpenter"], ["Yesterday Once More", "has credited songwriter", "John Bettis"], ["Yesterday Once More", "appears in category", "Songs about nostalgia"], ["Yesterday Once More", "listed under category", "Songs written by Richard Carpenter (musician)"], ["Yesterday Once More", "listed under category", "Songs with lyrics by John Bettis"]]}]}
+****************************************************************
+
+--------------------------------------------------------------------------------
+
+>>>>>>>> TERMINATING RUN (2f1fd436-4efe-4a5c-b5d7-2dea532ed7a4): Maximum turns (2) reached
+
+
+=== Generated Response ===
+
+Richard Carpenter and John Bettis.
+
+{
+  "contribution": {
+    "references_pct": 70,
+    "triples_pct": 30
+  }
+}
+```
+
+**Prompt**:
+```log
+Original Question:
+Who wrote a song "yesterday once more"?
+
+=========================
+
+Please refer to the following references and triples to answer the question:
+----------------------------------
+Sub-question: Who wrote a song "yesterday once more"?
+Reference: The opening description states that Yesterday Once More was written by Richard Carpenter and John Bettis.
+Relevance Score: 0.9975376129150391
+Source: https://en.wikipedia.org/wiki/Yesterday_Once_More_(song)
+----------------------------------
+Sub-question: Who wrote a song "yesterday once more"?
+Reference: The song’s credited songwriters are Richard Carpenter and John Bettis.
+Relevance Score: 0.25822973251342773
+Source: https://en.wikipedia.org/wiki/Yesterday_Once_More_(song)
+----------------------------------
+Sub-question: Who wrote a song "yesterday once more"?
+Reference: The song appears in the category Songs about nostalgia, confirming its authorship by Carpenter and Bettis.
+Relevance Score: 0.04803941026329994
+Source: https://en.wikipedia.org/wiki/Yesterday_Once_More_(song)
+----------------------------------
+Sub-question: Who wrote a song "yesterday once more"?
+Reference: The song is listed under the category Songs written by Richard Carpenter (musician).
+Relevance Score: 0.03587467595934868
+Source: https://en.wikipedia.org/wiki/Yesterday_Once_More_(song)
+----------------------------------
+Sub-question: Who wrote a song "yesterday once more"?
+Reference: It is also listed under the category Songs with lyrics by John Bettis.
+Relevance Score: 0.010694525204598904
+Source: https://en.wikipedia.org/wiki/Yesterday_Once_More_(song)
+----------------------------------
+Triples (Knowledge Graph): 
+`Subject: "Yesterday Once More", Predicate: "was written by", Object: "Richard Carpenter"`
+`Subject: "Yesterday Once More", Predicate: "was written by", Object: "John Bettis"`
+`Subject: "Yesterday Once More", Predicate: "has credited songwriter", Object: "Richard Carpenter"`
+`Subject: "Yesterday Once More", Predicate: "has credited songwriter", Object: "John Bettis"`
+`Subject: "Yesterday Once More", Predicate: "appears in category", Object: "Songs about nostalgia"`
+`Subject: "Yesterday Once More", Predicate: "listed under category", Object: "Songs written by Richard Carpenter (musician)"`
+`Subject: "Yesterday Once More", Predicate: "listed under category", Object: "Songs with lyrics by John Bettis"`
+
+
+=========================
+
+Notes:
+1. The answer must begin with the correct option from the question choices.
+2. If the question is multi-choice, choose the best answer (A), (B), (C) or (D) based on your understanding of the question.
+3. If the reference knowledges are unavailable or unreasonable, you need to answer with your own understanding.
+4. Answer the question in English.
+5. After answering the question, output a JSON object named contribution with two integer fields: references_pct and triples_pct.
+- Constraints: each is 0–100, and references_pct + triples_pct = 100.
+- Do not include additional keys or commentary.
+- e.g. "contribution": {"references_pct": percentage, "triples_pct": percentage}
+
+=========================
+
+Answer:
+```
+
+**Triples**:
+![](output/who_wrote_a_song_yesterday_once_more/triples.png)
+
+
+
