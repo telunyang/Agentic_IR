@@ -157,7 +157,9 @@ Note: You can set `num_results` in `run.py` to control the number of search resu
 
 Please refer to the following example from [output/who_wrote_a_song_yesterday_once_more](output/who_wrote_a_song_yesterday_once_more/):
 
-**Question**: Who wrote a song "yesterday once more"?
+**Question**: `Who wrote a song "yesterday once more"?`
+
+**Run log**:
 ```log
 Using model: gpt-oss:120b
 Please enter your query: Who wrote a song "yesterday once more"?
