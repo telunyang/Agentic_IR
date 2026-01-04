@@ -5,6 +5,9 @@
 
 ---
 
+**Please follow the installation process below to install the environment and run the program.**
+
+
 ## Conda Installation
 - [Anaconda - Download Now](https://www.anaconda.com/download/success)
 ```bash
@@ -28,7 +31,7 @@ pip install -U ag2[openai,gemini,ollama]
 ```bash
 pip install -r requirements.txt
 ```
-Note: we recommend using `cuda 12.1` for better performance with PyTorch and Transformers.
+Note: We recommend using `cuda 12.1` for better performance with PyTorch and Transformers.
 ```bash
 # $ nvcc -V
 nvcc: NVIDIA (R) Cuda compiler driver
