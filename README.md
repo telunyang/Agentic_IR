@@ -46,6 +46,7 @@ Build cuda_12.1.r12.1/compiler.32415258_0
 
 ## Google Gemini API
 - [Google AI Studio - API keys](https://aistudio.google.com/api-keys)
+
 Note: 
 - In this project, we use `GOOGLE_API_KEY_01/02/03/04/05` as the environment variable name for Gemini API. Please see `.env-example` for more details and copy it to `.env`.
 - After applying for the API, store the API Key in th `.env` file, named as `GOOGLE_API_KEY_{num}=XXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX`
@@ -132,6 +133,7 @@ playwright install webkit
 
 ## Google Custom Search API
 - [Custom Search JSON API](https://developers.google.com/custom-search/v1/overview)
+
 Note: You need to create a Custom Search Engine and get the API key and Search Engine ID (CX).
 - After applying for the API, store the API Key and CX in th `.env` file, named as `SEARCH_API_KEY=XXXXXXXXXXXXXXXXXXXXXX` and `SEARCH_ENGINE_ID=XXXXXXXXXXXXXXXXXXXXXX`
 
