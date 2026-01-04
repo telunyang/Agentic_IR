@@ -45,6 +45,10 @@ def get_search_results(
             "proper_knowledge": [],
         }
 
+        # Set date range (optional)
+        # date_range = "after:2025-05-31 before:2026-01-01 "
+        date_range = ""
+
         '''
         Determine the type of query:
         - If it is a list, it represents multi-hop sub-questions
@@ -60,10 +64,10 @@ def get_search_results(
                     sentence = ""
 
                 # Temporarily store the previous query; if it is multi-hop, background knowledge should be included for the search
-                last_q = q + ' ' 
-
+                last_q = q + ' '
+                
                 # Search
-                li_context = run_web_search(q.strip(), num_results, "us", model_name)
+                li_context = run_web_search(date_range + q.strip(), num_results, "us", model_name)
 
                 # Organize paragraphs after summarization into a list for easy re-ranking
                 li_sentences = []
@@ -105,7 +109,7 @@ def get_search_results(
 
         elif isinstance(query, str):
             # Search
-            li_context = run_web_search(query, num_results, "us", model_name)
+            li_context = run_web_search(date_range + query, num_results, "us", model_name)
 
             # Organize paragraphs after summarization into a list for easy re-ranking
             li_sentences = []
@@ -189,7 +193,7 @@ def run_web_search(q: str, num_results: int, lang: str, model_name: str) -> list
             # Visit each link
             for url in urls:
                 # Go to page
-                page.goto(url, timeout=20*1000)
+                page.goto(url, timeout=15*1000)
                 
                 print("=" * 50)
                 print("Query:", q)
@@ -238,7 +242,7 @@ def run_web_search(q: str, num_results: int, lang: str, model_name: str) -> list
                 # Generate content
                 generated_text = generate(user_prompt, model_name) # 'gemini-2.5-flash'
                 generated_text = generated_text.replace("\n", "")
-                generated_text = eval(re.search(r"\[.*?\]", generated_text)[0])
+                generated_text = json.loads(re.search(r"\[.*?\]", generated_text)[0])
 
                 # Organize the data needed for return
                 d = {
