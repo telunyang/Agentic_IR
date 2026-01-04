@@ -1,0 +1,96 @@
+{
+    "user_intent": "Identify the songwriters of \"Yesterday Once More\"",
+    "hop_type": "single-hop",
+    "user_query": "Who wrote a song \"yesterday once more\"?",
+    "query": "Who wrote a song \"yesterday once more\"?",
+    "model_name": "gpt-oss:120b",
+    "search_results": [
+        [
+            {
+                "q": "Who wrote a song \"yesterday once more\"?",
+                "url": "https://en.wikipedia.org/wiki/Yesterday_Once_More_(song)",
+                "summaries": [
+                    "The song’s credited songwriters are Richard Carpenter and John Bettis.",
+                    "The opening description states that Yesterday Once More was written by Richard Carpenter and John Bettis.",
+                    "The song is listed under the category Songs written by Richard Carpenter (musician).",
+                    "It is also listed under the category Songs with lyrics by John Bettis.",
+                    "The song appears in the category Songs about nostalgia, confirming its authorship by Carpenter and Bettis."
+                ]
+            }
+        ]
+    ],
+    "proper_knowledge": [
+        {
+            "q": "Who wrote a song \"yesterday once more\"?",
+            "references": [
+                {
+                    "corpus_id": 1,
+                    "score": 0.9975376129150391,
+                    "text": "The opening description states that Yesterday Once More was written by Richard Carpenter and John Bettis.",
+                    "url": "https://en.wikipedia.org/wiki/Yesterday_Once_More_(song)"
+                },
+                {
+                    "corpus_id": 0,
+                    "score": 0.25822973251342773,
+                    "text": "The song’s credited songwriters are Richard Carpenter and John Bettis.",
+                    "url": "https://en.wikipedia.org/wiki/Yesterday_Once_More_(song)"
+                },
+                {
+                    "corpus_id": 4,
+                    "score": 0.04803941026329994,
+                    "text": "The song appears in the category Songs about nostalgia, confirming its authorship by Carpenter and Bettis.",
+                    "url": "https://en.wikipedia.org/wiki/Yesterday_Once_More_(song)"
+                },
+                {
+                    "corpus_id": 2,
+                    "score": 0.03587467595934868,
+                    "text": "The song is listed under the category Songs written by Richard Carpenter (musician).",
+                    "url": "https://en.wikipedia.org/wiki/Yesterday_Once_More_(song)"
+                },
+                {
+                    "corpus_id": 3,
+                    "score": 0.010694525204598904,
+                    "text": "It is also listed under the category Songs with lyrics by John Bettis.",
+                    "url": "https://en.wikipedia.org/wiki/Yesterday_Once_More_(song)"
+                }
+            ],
+            "triplets": [
+                [
+                    "Yesterday Once More",
+                    "was written by",
+                    "Richard Carpenter"
+                ],
+                [
+                    "Yesterday Once More",
+                    "was written by",
+                    "John Bettis"
+                ],
+                [
+                    "Yesterday Once More",
+                    "has credited songwriter",
+                    "Richard Carpenter"
+                ],
+                [
+                    "Yesterday Once More",
+                    "has credited songwriter",
+                    "John Bettis"
+                ],
+                [
+                    "Yesterday Once More",
+                    "appears in category",
+                    "Songs about nostalgia"
+                ],
+                [
+                    "Yesterday Once More",
+                    "listed under category",
+                    "Songs written by Richard Carpenter (musician)"
+                ],
+                [
+                    "Yesterday Once More",
+                    "listed under category",
+                    "Songs with lyrics by John Bettis"
+                ]
+            ]
+        }
+    ]
+}
