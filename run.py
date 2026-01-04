@@ -30,10 +30,12 @@ li_models = [
     'gemini-2.0-flash-lite',
     'gemini-2.5-flash',
     'gemini-2.5-flash-lite',
+    'gpt-3.5-turbo',
+    'gpt-4o-mini',
 ]
 
 # Choose model
-model_name = li_models[1]
+model_name = li_models[5]  # Change the index to select different models
 print(f"Using model: {model_name}")
 llm_config = LLMConfig.from_json(
     path="OAI_CONFIG_LIST",
