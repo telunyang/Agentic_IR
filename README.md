@@ -1,7 +1,7 @@
 [![DOI](https://zenodo.org/badge/1067618260.svg)](https://doi.org/10.5281/zenodo.17240909)
 
 # AgentKR
-- temp
+- We integrate AI Agents, Reranking, and Knowledge Graphs to build an interactive Information Retrieval pipeline/system. The main goal is to address the issues of opacity, lack of auditability, and even errors in the use of web search functions by AI regarding cited sources.
 
 ---
 
@@ -127,7 +127,7 @@ playwright install webkit
 
 ---
 
-## Customa
+## Google Custom Search API
 - [Custom Search JSON API](https://developers.google.com/custom-search/v1/overview)
 Note: You need to create a Custom Search Engine and get the API key and Search Engine ID (CX).
 - After applying for the API, store the API Key and CX in th `.env` file, named as `SEARCH_API_KEY=XXXXXXXXXXXXXXXXXXXXXX` and `SEARCH_ENGINE_ID=XXXXXXXXXXXXXXXXXXXXXX`
@@ -147,8 +147,10 @@ Note: Before you run the `run.py` script, please make sure the reranking web api
 python run.py
 ```
 
-### 3. Examples
+### 3. Example
 Note: You can set `num_results` in `run.py` to control the number of search results returned.
+
+Please refer to the following example from [output/who_wrote_a_song_yesterday_once_more](output/who_wrote_a_song_yesterday_once_more/):
 
 **Question**: Who wrote a song "yesterday once more"?
 ```log
