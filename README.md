@@ -1,6 +1,6 @@
 [![DOI](https://zenodo.org/badge/1067618260.svg)](https://doi.org/10.5281/zenodo.17240909)
 
-# AgentKR
+# Agentic Information Retrieval (IR)
 - We integrate AI Agents, Reranking, and Knowledge Graphs to build an interactive Information Retrieval pipeline/system. The main goal is to address the issues of opacity, lack of auditability, and even errors in the use of web search functions by AI regarding cited sources.
 
 ---
