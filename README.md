@@ -56,7 +56,8 @@ Note:
 ## ollama
 
 ### Installation
-- [Ollama GitHub](https://github.com/ollama/ollama)
+- [Ollama](https://github.com/ollama/ollama)
+- [Ollama Python Library](https://github.com/ollama/ollama-python)
 ```bash
 # ubuntu
 curl -fsSL https://ollama.com/install.sh | sh
@@ -147,14 +148,43 @@ python web_api_rerank.py
 ```
 Note: Before you run the `run.py` script, please make sure the reranking web api service is running.
 
+#### Example of reranking log
+```log
+Reranking...
+[{'corpus_id': 1,
+  'score': 0.9975376129150391,
+  'text': 'The opening description states that Yesterday Once More was written '
+          'by Richard Carpenter and John Bettis.',
+  'url': 'https://en.wikipedia.org/wiki/Yesterday_Once_More_(song)'},
+ {'corpus_id': 0,
+  'score': 0.25822973251342773,
+  'text': 'The song’s credited songwriters are Richard Carpenter and John '
+          'Bettis.',
+  'url': 'https://en.wikipedia.org/wiki/Yesterday_Once_More_(song)'},
+ {'corpus_id': 4,
+  'score': 0.04803941026329994,
+  'text': 'The song appears in the category Songs about nostalgia, confirming '
+          'its authorship by Carpenter and Bettis.',
+  'url': 'https://en.wikipedia.org/wiki/Yesterday_Once_More_(song)'},
+ {'corpus_id': 2,
+  'score': 0.03587467595934868,
+  'text': 'The song is listed under the category Songs written by Richard '
+          'Carpenter (musician).',
+  'url': 'https://en.wikipedia.org/wiki/Yesterday_Once_More_(song)'},
+ {'corpus_id': 3,
+  'score': 0.010694525204598904,
+  'text': 'It is also listed under the category Songs with lyrics by John '
+          'Bettis.',
+  'url': 'https://en.wikipedia.org/wiki/Yesterday_Once_More_(song)'}]
+Reranking took: 0.30 seconds
+```
+
 ### 2. Launch the main pipeline
 ```bash
 python run.py
 ```
 
 ### 3. Example
-Note: You can set `num_results` in `run.py` to control the number of search results returned.
-
 Please refer to the following example from [output/who_wrote_a_song_yesterday_once_more](output/who_wrote_a_song_yesterday_once_more/):
 
 **Question**: `Who wrote a song "yesterday once more"?`
@@ -301,5 +331,6 @@ Answer:
 **Triples**:
 ![](output/who_wrote_a_song_yesterday_once_more/triples.png)
 
+Note: You can set `num_results`(the number of search results) in `run.py` to control the number of search results returned.
 
 
