@@ -17,7 +17,7 @@ ip_filter.ruleset.permit("127.0.0.1")
 
 # Re-ranker
 cross_encoder = CrossEncoder(
-    'BAAI/bge-reranker-v2-m3',
+    'BAAI/bge-reranker-v2-m3', # You can change to other models here
     device='cpu', # 'cuda:0'
     trust_remote_code=True
 )
@@ -32,13 +32,13 @@ def rerank():
 
     # Re-rank
     t1 = time()
-    print('Re-ranking...')
+    print('Reranking...')
     ranks = cross_encoder.rank(q, li_sentences, return_documents=True)
     for index, obj in enumerate(ranks):
         ranks[index]['score'] = float(obj['score'])
         ranks[index]['url'] = li_urls[obj['corpus_id']]
     pprint(ranks)
-    print(f"Re-ranking took: {time() - t1:.2f} seconds")
+    print(f"Reranking took: {time() - t1:.2f} seconds")
 
     # Return results
     return jsonify({"ranks": ranks})
