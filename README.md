@@ -5,6 +5,28 @@
 
 ---
 
+## System Workflow
+![Overview](images/overview.png)
+Figure: The proposed agentic information retrieval pipeline integrates web data acquisition, URL-scoped summarization, reranking, and
+knowledge graph construction to enhance the factual accuracy and interpretability of LLM-based responses. The Router and Executor
+orchestrate the pipeline by managing user requests, invoking web retrieval tools (web search and URL fetching/parsing), and
+coordinating intermediate processing steps. This architecture aims to reduce hallucinations and improve traceability in GenAI
+systems.
+
+
+![Proposed Method](images/proposed_method.png)
+Figure: Query → Router (plan) → Executor search → fetch/summarize → rerank (over candidate summaries) → top-𝑚 references → triplet extraction → KG → Router (continue or finalize). The example highlights Newton’s birth dates and shows how references plus triples ground the answer selection.
+
+
+![Recursive Reranking](images/recursive_reranking.png)
+Figure: Pipeline of the recursive information retrieval. A prompted agent first decides whether decomposition is required. Without decomposition, a single iteration of URL-scoped fetching and summarization (into candidate summaries), and single-model reranking is executed, and the top-𝑚 candidate summaries are taken as knowledge references. With decomposition, the agent emits a coherent chain of sub-questions ⟨𝑞1, . . . , 𝑞𝑇 ⟩; at each step 𝑡, the same retrieve–summarization–rerank routine yields references 𝑅𝑡 , a brief intermediate answer 𝑎𝑡 , and 𝑎𝑡 conditions the next step (answer chaining). When the agent stops, the aggregated references Ð𝑡 𝑅𝑡 are provided to the final LLM.
+
+
+![References to Triples](images/references_to_triplets.png)
+Figure: Select-to-construct knowledge graph from agent-selected references. Starting with the top-𝑚 URL-scoped candidate summaries, we extract (subject, relation, object) triples and attach provenance (URL and sentence span). Duplicate triples are merged. The example illustrates Sir Isaac Newton’s new-/old-style dates of birth and a location chain (Woolsthorpe Manor → Lincolnshire → England).
+
+---
+
 **Please follow the installation process below to install the environment and run the program.**
 
 
