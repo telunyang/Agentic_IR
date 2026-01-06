@@ -73,7 +73,7 @@ def get_search_results(
                 li_sentences = []
                 li_urls = []
                 for d in li_context:
-                    # 取得摘要
+                    # Get summaries
                     summaries = d['summaries']
                     for summary in summaries:
                         li_sentences.append(summary.strip())
