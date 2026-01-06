@@ -359,10 +359,12 @@ If you use Agentic_IR in your research, please cite:
 
 ```bibtex
 @misc{yang_agentic_ir_2025,
-  author       = {Te-Lun Yang},
-  title        = {Agentic\_IR: Agentic Information Retrieval with Reranking and Knowledge Graphs},
-  howpublished = {\url{https://github.com/telunyang/Agentic_IR}},
+  author       = {Te-Lun Yang and Jyh-Shing Jang},
+  title        = {Agentic\_IR: Agentic Information Retrieval with Reranking and Knowledge Graphs for MCQA},
   year         = {2025},
+  publisher    = {Zenodo},
+  doi          = {10.5281/zenodo.17240909},
+  url          = {https://doi.org/10.5281/zenodo.17240909},
   note         = {Version 1.1.0}
 }
 ```
