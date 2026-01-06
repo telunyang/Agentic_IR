@@ -360,7 +360,7 @@ If you use Agentic_IR in your research, please cite:
 ```bibtex
 @misc{yang_agentic_ir_2025,
   author       = {Te-Lun Yang and Jyh-Shing Jang},
-  title        = {Agentic\_IR: Agentic Information Retrieval with Reranking and Knowledge Graphs for MCQA},
+  title        = {Agentic\_IR: An interactive information retrieval pipeline with AI agents, reranking, and knowledge graphs},
   year         = {2025},
   publisher    = {Zenodo},
   doi          = {10.5281/zenodo.17240909},
