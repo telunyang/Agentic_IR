@@ -353,6 +353,12 @@ Note: You can set `num_results`(the number of search results) in `run.py` to con
 
 ---
 
+## Poster in zh-tw
+The poster for this project: Agentic IR
+![The poster for this project: Agentic IR](images/zh-tw_poster.jpg)
+
+---
+
 ## Citation
 
 If you use Agentic_IR in your research, please cite:
