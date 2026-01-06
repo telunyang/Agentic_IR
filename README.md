@@ -351,4 +351,18 @@ Answer:
 
 Note: You can set `num_results`(the number of search results) in `run.py` to control the number of search results returned.
 
+---
 
+## Citation
+
+If you use Agentic_IR in your research, please cite:
+
+```bibtex
+@misc{yang_agentic_ir_2025,
+  author       = {Te-Lun Yang},
+  title        = {Agentic\_IR: An interactive information retrieval pipeline with AI agents, reranking, and knowledge graphs},
+  howpublished = {\url{https://github.com/telunyang/Agentic_IR}},
+  year         = {2025},
+  note         = {Version 1.1.0}
+}
+```
