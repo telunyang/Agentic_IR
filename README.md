@@ -75,7 +75,7 @@ Note:
 
 ---
 
-## ollama
+## Ollama
 
 ### Installation
 - [Ollama](https://github.com/ollama/ollama)
