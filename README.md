@@ -254,12 +254,8 @@ Knowledge obtained:
                'The song appears in the category Songs about nostalgia, '
                'confirming its authorship by Carpenter and Bettis.'],
  'url': 'https://en.wikipedia.org/wiki/Yesterday_Once_More_(song)'}
-<class 'playwright._impl._errors.TimeoutError'> Search.py 196
-Error in Search: Page.goto: Timeout 20000ms exceeded.
-Call log:
-  - navigating to "https://www.tennessean.com/story/entertainment/music/story-behind-the-song/2014/08/23/story-behind-song-yesterday/14493145/", waiting until "load"
 
-Program execution time: 49.492528438568115 seconds
+Program execution time: 29.492528438568115 seconds
 
 >>>>>>>> EXECUTED FUNCTION get_search_results...
 Call ID: ollama_manual_func_7869
