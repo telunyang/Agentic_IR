@@ -1,4 +1,14 @@
-[![DOI](https://zenodo.org/badge/1067618260.svg)](https://doi.org/10.5281/zenodo.17240909)
+<!-- ![Agentic Information Retrieval](images/cover_agentic_ir.png)
+
+[![DOI](https://zenodo.org/badge/1067618260.svg)](https://doi.org/10.5281/zenodo.17240909) -->
+
+<p align="center">
+  <img src="images/cover_agentic_ir.png" alt="Agentic Information Retrieval" />
+
+  <a href="https://doi.org/10.5281/zenodo.17240909" target="_blank">
+    <img src="https://zenodo.org/badge/1067618260.svg" alt="DOI">
+  </a>
+</p>
 
 # Agentic Information Retrieval (IR)
 - We integrate AI Agents, Reranking, and Knowledge Graphs to build an interactive Information Retrieval pipeline/system. The main goal is to address the issues of opacity, lack of auditability, and even errors in the use of web search functions by AI regarding cited sources.
