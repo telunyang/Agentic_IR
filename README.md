@@ -4,7 +4,7 @@
 
 <p align="center">
 <img src="images/cover_agentic_ir.png" alt="Agentic Information Retrieval" />
-<a href="https://doi.org/10.5281/zenodo.17240909"><img src="https://zenodo.org/badge/1067618260.svg" alt="DOI"></a>
+<a href="https://doi.org/10.5281/zenodo.17240909"><img src="images/zenodo.svg" alt="DOI"></a>
 </p>
 
 # Agentic Information Retrieval (IR)
