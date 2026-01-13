@@ -3,11 +3,8 @@
 [![DOI](https://zenodo.org/badge/1067618260.svg)](https://doi.org/10.5281/zenodo.17240909) -->
 
 <p align="center">
-  <img src="images/cover_agentic_ir.png" alt="Agentic Information Retrieval" />
-
-  <a href="https://doi.org/10.5281/zenodo.17240909" target="_blank">
-    <img src="https://zenodo.org/badge/1067618260.svg" alt="DOI">
-  </a>
+<img src="images/cover_agentic_ir.png" alt="Agentic Information Retrieval" />
+<a href="https://doi.org/10.5281/zenodo.17240909"><img src="https://zenodo.org/badge/1067618260.svg" alt="DOI"></a>
 </p>
 
 # Agentic Information Retrieval (IR)
